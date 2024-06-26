@@ -1,3 +1,4 @@
+import ErrorConstants from '../constants/ErrorConstants';
 import House from '../models/House';
 import User from '../models/User';
 
@@ -11,6 +12,18 @@ class HouseController {
         const houses = await House.find({ status })
 
         return res.json(houses)
+    }
+
+    async listHouseById(req, res) {
+        const { id } = req.params;
+
+        const house = await House.findById(id);
+
+        if (!house || house == null) {
+            return res.json([]);
+        }
+
+        return res.json(house);
     }
 
     // Criar uma nova casa
@@ -42,8 +55,8 @@ class HouseController {
         const user = await User.findById(user_id);
         const houses = await House.findById(id);
 
-        if (String(user._id) !== String(houses.user)) {
-            res.status(401).json({message: 'Usuário não autorizado!'})
+        if (!String.user_id || (String(user._id) !== String(houses.user))) {
+            res.status(401).json({message: ErrorConstants.ERROR_USUARIO_NAO_AUTORIZADO})
         }
 
         await House.updateOne({ _id: id }, {
@@ -54,7 +67,7 @@ class HouseController {
             location, status
         });
 
-        return res.send();
+        return res.json({message: ErrorConstants.SUCCESS_ALTERACAO});
     }
 
     async destroy(req, res) {
@@ -66,13 +79,13 @@ class HouseController {
 
         console.log(houses)
 
-        if (houses && houses.user && String(user._id) !== String(houses.user)) {
-            res.status(401).json({message: 'Usuário não autorizado!'})
+        if (!String.user_id || (String(user._id) !== String(houses.user))) {
+            res.status(401).json({message: ErrorConstants.ERROR_USUARIO_NAO_AUTORIZADO})
         }
 
         await House.findByIdAndDelete({ _id: id });
 
-        res.json({message: 'Casa excluída com sucesso!'});
+        res.json({message: ErrorConstants.SUCCESS_EXCLUSAO});
     }
 }
 

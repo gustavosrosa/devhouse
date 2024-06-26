@@ -13,6 +13,8 @@ routes.post('/sessions', SessionController.store)
 
 routes.post('/houses', uploadConfig.single('thumbnail'), HouseController.store)
 
+routes.get("/houses/:id", HouseController.listHouseById);
+
 routes.get('/houses', HouseController.index)
 
 routes.put('/houses/:id', uploadConfig.single('thumbnail'), HouseController.update);
