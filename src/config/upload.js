@@ -2,6 +2,8 @@ import multer from "multer";
 import path from 'path';
 
 export default {
+   
+
     storage: multer.diskStorage({
         // Usar dessa forma por compatibilidade do sistema operacional
         destination: path.resolve(__dirname, '..', '..', 'uploads'),

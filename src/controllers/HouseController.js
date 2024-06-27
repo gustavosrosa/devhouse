@@ -29,9 +29,19 @@ class HouseController {
     // Criar uma nova casa
     async store(req, res) {
 
-        const { filename } = req.file;
+        try {
+          
+
         const { description, price, location, status } = req.body;
         const { user_id } = req.headers;
+
+        if (!req.file) {
+            return res.status(400).send({message: ErrorConstants.ERROR_CAMPO_IMAGEM_OBRIGATORIO});
+        }
+
+        const { filename } = req.file;
+
+        
         
         const house = await House.create({
             user: user_id,
@@ -41,15 +51,22 @@ class HouseController {
             location, status
         })
 
-        return res.json(house)
+    } catch(e) {
+        console.error(e);
+    }
+
+        return res.json(house);
+
+          
+   
     }
 
     async update(req, res) {
 
-        const { filename } = req.file;
         const { id } = req.params;
         const { description, price, location, status } = req.body;
         const { user_id } = req.headers;
+
 
         // Ver qual o usuário que está logado
         const user = await User.findById(user_id);
@@ -59,13 +76,18 @@ class HouseController {
             res.status(401).json({message: ErrorConstants.ERROR_USUARIO_NAO_AUTORIZADO})
         }
 
-        await House.updateOne({ _id: id }, {
+        const houseData = {
             user: user_id,
-            thumbnail: filename,
-            description, // Nao precisa dos dois pontos por que é o mesmo nome do schema do banco
+            description,
             price, 
             location, status
-        });
+        }
+
+        if (req.file.filename) {
+            houseData.thumbnail = req.file.filename;
+        }
+
+        await House.updateOne({ _id: id }, houseData);
 
         return res.json({message: ErrorConstants.SUCCESS_ALTERACAO});
     }
