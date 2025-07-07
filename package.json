@@ -10,7 +10,8 @@
     "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "mongoose": "^8.16.1",
-    "multer": "^2.0.1"
+    "multer": "^2.0.1",
+    "yup": "^1.6.1"
   },
   "scripts": {
     "dev": "nodemon ./src/server.js"
