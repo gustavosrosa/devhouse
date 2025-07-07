@@ -10,5 +10,6 @@ const upload = multer(uploadConfiguration);
 router.post("/sessions", SessionController.store);
 
 router.post("/houses", upload.single('thumbnail'), HouseController.store);
+router.get("/houses", HouseController.index);
 
 export default router;
