@@ -14,4 +14,6 @@ router.get("/houses", HouseController.index);
 
 router.put("/houses/:house_id", upload.single('thumbnail'), HouseController.update);
 
+router.delete("/houses/:house_id", HouseController.destroy)
+
 export default router;
