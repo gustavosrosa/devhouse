@@ -39,7 +39,7 @@ class HouseController {
         })
 
         return res.json(house);
-        
+
     }
 
     async update(req, res) {
@@ -67,16 +67,18 @@ class HouseController {
             return res.status(401).json({error: "Nao autorizado"});
         }
 
-        await House.updateOne({ 
-            _id: house_id,
-        }, {
-            user: user_id,
-            thumbnail: filename,
-            description,
-            price,
-            location,
-            status
-        })
+        await House.updateOne(
+            {
+                _id: house_id,
+            }, {
+                user: user_id,
+                thumbnail: filename,
+                description,
+                price,
+                location,
+                status
+            }
+        )
 
         return res.status(200).json({OK: "Alterado com sucesso"});
     }
