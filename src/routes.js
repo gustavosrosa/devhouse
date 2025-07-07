@@ -12,4 +12,6 @@ router.post("/sessions", SessionController.store);
 router.post("/houses", upload.single('thumbnail'), HouseController.store);
 router.get("/houses", HouseController.index);
 
+router.put("/houses/:house_id", upload.single('thumbnail'), HouseController.update);
+
 export default router;
