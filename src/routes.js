@@ -4,6 +4,7 @@ import HouseController from "./controllers/HouseController";
 import multer from "multer";
 import uploadConfiguration from "./config/upload";
 import DashboardController from "./controllers/DashboardController";
+import ReserveController from "./controllers/ReserveController";
 
 const router = new Router();
 const upload = multer(uploadConfiguration);
@@ -16,5 +17,9 @@ router.put("/houses/:house_id", upload.single('thumbnail'), HouseController.upda
 router.delete("/houses/:house_id", HouseController.destroy);
 
 router.get("/dashboard", DashboardController.show);
+
+router.get("/houses/reserves", ReserveController.index);
+router.post("/houses/:house_id/reserve", ReserveController.store);
+router.delete("/house/reserve", ReserveController.destroy);
 
 export default router;
