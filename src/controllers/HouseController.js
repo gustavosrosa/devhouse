@@ -1,5 +1,5 @@
 import House from "../models/House";
-
+import User from "../models/User";
 class HouseController {
 
     async index(req, res) {
@@ -36,7 +36,14 @@ class HouseController {
         const { user_id } = req.headers;
         const { house_id } = req.params;
 
-        const houses = await House.updateOne({ 
+        const user = await User.findById(user_id);
+        const houses = await House.findById(house_id);
+
+        if (String(user._id) !== String(houses.user)) {
+            return res.status(401).json({error: "Nao autorizado"});
+        }
+
+        await House.updateOne({ 
             _id: house_id,
         }, {
             user: user_id,
@@ -47,7 +54,7 @@ class HouseController {
             status
         })
 
-        return res.json({houses});
+        return res.status(200).json({OK: "Alterado com sucesso"});
     }
 }
 
