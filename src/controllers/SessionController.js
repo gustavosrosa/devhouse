@@ -29,7 +29,6 @@ class SessionController {
 
         return res.json(user);
 
-        
     }
 
 }
