@@ -6,10 +6,10 @@ const ReserveSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    House: {
+    house: {
         type: Schema.Types.ObjectId,
         ref: "House"
     }
 });
 
-export default model("Reserva", ReserveSchema);
+export default model("Reserve", ReserveSchema);
