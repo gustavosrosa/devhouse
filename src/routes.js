@@ -18,6 +18,8 @@ router.delete("/houses/:house_id", HouseController.destroy);
 
 router.get("/dashboard", DashboardController.show);
 
+router.get("/houses/reserves", ReserveController.index);
 router.post("/houses/:house_id/reserve", ReserveController.store);
+router.delete("/house/reserve", ReserveController.destroy);
 
 export default router;
